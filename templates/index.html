@@ -1,0 +1,16 @@
+{# templates/index.html #}
+{% extends "base.html" %}
+{% block content %}
+    {% include "_header.html" %}
+    {% include "_hero.html" %}
+    {% include "_features.html" %}
+    {% include "_plans.html" %}
+    {% include "_howitworks.html" %}
+    {% include "_reviews.html" %}
+    {% include "_faq.html" %}
+    {% include "_cta.html" %}
+    {% include "_footer.html" %}
+    {% include "_payment_form.html" %}
+    {% include "_processing.html" %}
+    <script src="/static/main.js"></script>
+{% endblock %}

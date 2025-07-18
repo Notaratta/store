@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://widget.freedompay.uz/pbwidget.js"></script>
+    <script>
+        function pay() {
+            // You get this token from your backend (next step)
+            fetch('/get_payment_token')
+                .then(response => response.json())
+                .then(data => {
+                    const widget = new PayBox({
+                        token: data.token,
+                        successCallback: function() {
+                            alert('Payment successful!');
+                        },
+                        errorCallback: function(error) {
+                            console.error('Payment failed:', error);
+                        }
+                    });
+                    widget.create();
+                })
+                .catch(error => {
+                    console.error('Failed to get token:', error);
+                });
+        }
+        </script>
+        
+    <button onclick="pay()">Pay Now</button>
+
+</body>
+</html>

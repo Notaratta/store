@@ -1,0 +1,15 @@
+{# templates/buy.html #}
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold mb-4">Buy Your Plan</h2>
+    <p class="mb-8">Welcome to the purchase menu. Please select your options below.</p>
+    <style>
+        #payment-page { display: block !important; }
+        #processing-page { display: none; }
+    </style>
+    {% include "_payment_form.html" %}
+    {% include "_processing.html" %}
+    <script src="/static/main.js"></script>
+</div>
+{% endblock %}

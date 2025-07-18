@@ -1,0 +1,56 @@
+<section id="plans" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-4">Choose Your Plan</h2>
+        <p class="text-center text-gray-600 mb-12">Up to 50% cheaper than official Spotify prices</p>
+        <div id="plans-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Plans will be loaded here dynamically -->
+        </div>
+        <div class="mt-8 text-center">
+            <div class="inline-flex items-center bg-gray-100 px-4 py-2 rounded-full">
+                <i class="fas fa-lock text-green-500 mr-2"></i>
+                <span>Secure payment with Visa, Mastercard, PayPal</span>
+            </div>
+        </div>
+    </div>
+    <style>
+        .plan-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .plan-card .plan-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+        }
+        .plan-card .get-started-btn {
+            margin-top: auto;
+        }
+    </style>
+    <script>
+    async function loadPlans() {
+        const res = await fetch('/api/products');
+        const products = await res.json();
+        const grid = document.getElementById('plans-grid');
+        grid.innerHTML = '';
+        products.forEach(product => {
+            const consList = product.cons && product.cons.length ? `<ul class='mb-6'>` + product.cons.map(con => `<li class='flex items-center mb-2'><i class='fas fa-check text-green-500 mr-2'></i><span>${con}</span></li>`).join('') + `</ul>` : '';
+            grid.innerHTML += `
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden plan-card transition duration-300">
+                <div class="p-6 plan-content">
+                    <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
+                    <div class="flex items-end mb-4">
+                        <span class="text-4xl font-bold">$${product.price}</span>
+                    </div>
+                    ${consList}
+                    <a href="/buy?id=${product.id}" class="w-full block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-full text-center get-started-btn">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+            `;
+        });
+    }
+    loadPlans();
+    </script>
+</section> 
